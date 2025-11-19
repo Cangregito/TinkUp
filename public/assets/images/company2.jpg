@@ -1,0 +1,7 @@
+<!-- Placeholder para logo de empresa 2 -->
+<svg width="64" height="64" xmlns="http://www.w3.org/2000/svg">
+  <rect width="64" height="64" fill="#7C6FD9" rx="8"/>
+  <text x="50%" y="50%" font-size="24" fill="white" text-anchor="middle" dy=".3em" font-weight="bold">
+    E2
+  </text>
+</svg>

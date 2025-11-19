@@ -16,16 +16,16 @@ export class HeaderView {
             <nav class="navbar">
                 <div class="container">
                     <div class="logo">
-                        <h1>TinkUp</h1>
+                        <h1>ThinkUp</h1>
                     </div>
                     <ul class="nav-menu" id="nav-menu">
                         <li><a href="#hero" class="nav-link">Inicio</a></li>
-                        <li><a href="#about" class="nav-link">Sobre Mí</a></li>
                         <li><a href="#projects" class="nav-link">Proyectos</a></li>
+                        <li><a href="#experience" class="nav-link">Experiencia</a></li>
                         <li><a href="#skills" class="nav-link">Habilidades</a></li>
-                        <li><a href="#contact" class="nav-link">Contacto</a></li>
+                        <li><a href="#about" class="nav-link">Acerca de</a></li>
                     </ul>
-                    <button class="hamburger" id="hamburger">
+                    <button class="hamburger" id="hamburger" aria-label="Menú">
                         <span></span>
                         <span></span>
                         <span></span>

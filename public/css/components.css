@@ -2,27 +2,50 @@
  * Componentes reutilizables
  */
 
-/* Botones */
+/* Botones - Material Design */
 .btn {
     display: inline-block;
     padding: var(--spacing-md) var(--spacing-xl);
-    border-radius: var(--border-radius-md);
-    font-weight: 600;
+    border-radius: var(--border-radius-lg);
+    font-weight: var(--font-weight-semibold);
     font-size: var(--font-size-base);
     text-align: center;
     transition: all var(--transition-base);
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
 }
 
 .btn-primary {
     background-color: var(--primary-color);
     color: white;
+    box-shadow: var(--elevation-2);
 }
 
 .btn-primary:hover {
-    background-color: #4f46e5;
+    background-color: #4E12C5;
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--elevation-3);
 }
 
 .btn-secondary {
@@ -32,36 +55,67 @@
 }
 
 .btn-secondary:hover {
-    background-color: white;
-    color: var(--primary-color);
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
 }
 
-/* Projects Grid */
+/* B. PROYECTOS - Material Design Cards */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: var(--spacing-2xl);
     margin-top: var(--spacing-2xl);
 }
 
 .project-card {
-    background-color: var(--bg-color);
-    border-radius: var(--border-radius-lg);
+    background-color: var(--bg-card);
+    border-radius: var(--border-radius-xl);
     overflow: hidden;
-    box-shadow: var(--shadow-md);
-    transition: all var(--transition-base);
+    box-shadow: var(--elevation-2);
+    transition: all var(--transition-emphasized);
+    position: relative;
+}
+
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    transform: scaleX(0);
+    transition: transform var(--transition-base);
 }
 
 .project-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-xl);
+    transform: translateY(-12px);
+    box-shadow: var(--elevation-4);
+}
+
+.project-card:hover::before {
+    transform: scaleX(1);
 }
 
 .project-image {
     width: 100%;
-    height: 200px;
+    height: 220px;
     overflow: hidden;
-    background-color: var(--bg-secondary);
+    background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+    position: relative;
+}
+
+.project-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(94, 23, 235, 0.3) 100%);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.project-card:hover .project-image::after {
+    opacity: 1;
 }
 
 .project-image img {
@@ -72,7 +126,7 @@
 }
 
 .project-card:hover .project-image img {
-    transform: scale(1.1);
+    transform: scale(1.15);
 }
 
 .project-content {
@@ -81,15 +135,17 @@
 
 .project-content h3 {
     font-size: var(--font-size-xl);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     margin-bottom: var(--spacing-md);
     color: var(--text-color);
+    letter-spacing: -0.3px;
 }
 
 .project-content p {
     color: var(--text-secondary);
     margin-bottom: var(--spacing-lg);
-    line-height: 1.6;
+    line-height: 1.7;
+    font-size: var(--font-size-base);
 }
 
 .technologies {
@@ -100,12 +156,18 @@
 }
 
 .tech-tag {
-    background-color: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
     padding: var(--spacing-xs) var(--spacing-md);
     border-radius: var(--border-radius-full);
     font-size: var(--font-size-sm);
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-fast);
+}
+
+.tech-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--elevation-1);
 }
 
 .project-links {
@@ -119,19 +181,35 @@
     font-size: var(--font-size-sm);
 }
 
-/* Skills */
+/* D. HABILIDADES - Material Design */
 .skills-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: var(--spacing-2xl);
     margin-top: var(--spacing-2xl);
 }
 
+.skill-category {
+    background-color: var(--bg-card);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-xl);
+    box-shadow: var(--elevation-2);
+    transition: all var(--transition-base);
+}
+
+.skill-category:hover {
+    box-shadow: var(--elevation-3);
+    transform: translateY(-4px);
+}
+
 .skill-category h3 {
     font-size: var(--font-size-xl);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     margin-bottom: var(--spacing-lg);
-    color: var(--text-color);
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
 }
 
 .skills-list {
@@ -144,6 +222,12 @@
     background-color: var(--bg-secondary);
     padding: var(--spacing-lg);
     border-radius: var(--border-radius-md);
+    transition: all var(--transition-fast);
+}
+
+.skill-item:hover {
+    background-color: var(--bg-hover);
+    transform: translateX(4px);
 }
 
 .skill-header {
@@ -164,17 +248,170 @@
 
 .skill-bar {
     width: 100%;
-    height: 8px;
-    background-color: #e5e7eb;
+    height: 10px;
+    background-color: var(--bg-hover);
     border-radius: var(--border-radius-full);
     overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .skill-progress {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
     border-radius: var(--border-radius-full);
-    transition: width 1s ease-out;
+    transition: width 1.5s var(--transition-emphasized);
+    box-shadow: 0 0 8px rgba(94, 23, 235, 0.4);
+    position: relative;
+}
+
+.skill-progress::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.3) 50%, 
+        transparent 100%);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* C. EXPERIENCIA - Timeline Cards */
+.experience-timeline {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2xl);
+}
+
+.experience-card {
+    background-color: var(--bg-card);
+    border-radius: var(--border-radius-xl);
+    box-shadow: var(--elevation-2);
+    overflow: hidden;
+    transition: all var(--transition-base);
+    border-left: 4px solid var(--primary-color);
+}
+
+.experience-card:hover {
+    box-shadow: var(--elevation-3);
+    transform: translateX(8px);
+}
+
+.experience-header {
+    padding: var(--spacing-xl);
+    background: linear-gradient(135deg, 
+        rgba(94, 23, 235, 0.05) 0%, 
+        rgba(184, 167, 232, 0.05) 100%);
+}
+
+.experience-company {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: flex-start;
+}
+
+.company-logo {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--border-radius-md);
+    overflow: hidden;
+    box-shadow: var(--elevation-1);
+    flex-shrink: 0;
+    background-color: var(--bg-secondary);
+}
+
+.company-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.company-info h3 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--text-color);
+    margin-bottom: var(--spacing-xs);
+}
+
+.company-name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.experience-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.experience-meta .material-icons {
+    font-size: 16px;
+}
+
+.separator {
+    margin: 0 var(--spacing-xs);
+    color: var(--text-light);
+}
+
+.experience-content {
+    padding: var(--spacing-xl);
+}
+
+.experience-description {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-base);
+}
+
+.experience-achievements {
+    margin-bottom: var(--spacing-lg);
+}
+
+.experience-achievements h4,
+.experience-technologies h4 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-color);
+    margin-bottom: var(--spacing-md);
+}
+
+.experience-achievements ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.experience-achievements li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+.experience-achievements li .material-icons {
+    color: var(--primary-color);
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.experience-technologies {
+    margin-top: var(--spacing-lg);
 }
 
 /* Empty message */
@@ -239,5 +476,30 @@
 
     .skills-container {
         grid-template-columns: 1fr;
+    }
+
+    .experience-company {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .company-logo {
+        margin-bottom: var(--spacing-md);
+    }
+
+    .experience-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: var(--spacing-lg);
+        text-align: center;
     }
 }

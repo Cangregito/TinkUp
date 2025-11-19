@@ -1,4 +1,4 @@
-# TinkUp - Portafolio Personal
+# ThinkUp - Portafolio Personal
 
 Portafolio de programación personal desarrollado con arquitectura MVC usando tecnologías nativas.
 
@@ -16,7 +16,7 @@ Portafolio de programación personal desarrollado con arquitectura MVC usando te
 ## 📁 Estructura del Proyecto
 
 ```
-TinkUp/
+ThinkUp/
 ├── index.html                 # Página principal
 ├── README.md                  # Documentación
 ├── public/                    # Archivos públicos

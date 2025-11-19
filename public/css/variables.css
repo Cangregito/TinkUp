@@ -1,76 +1,106 @@
 /**
  * Variables CSS - Tema y colores
+ * Sistema de diseño: Material Design
+ * Paleta: Violeta/Lavanda
  */
 
 :root {
-    /* Colores principales */
-    --primary-color: #6366f1;
-    --secondary-color: #8b5cf6;
-    --accent-color: #ec4899;
+    /* 🟦 Esquema con Fondo Claro */
+    --primary-color: #5E17EB;        /* Violeta Profundo */
+    --secondary-color: #7C6FD9;      /* Azul Lila */
+    --accent-color: #B8A7E8;         /* Lavanda Suave */
     
-    /* Colores de fondo */
-    --bg-color: #ffffff;
-    --bg-secondary: #f9fafb;
-    --bg-dark: #111827;
+    /* Colores de fondo - Modo Claro */
+    --bg-color: #FAF9F6;             /* Blanco Hueso */
+    --bg-secondary: #F5F3F0;
+    --bg-card: #FFFFFF;
+    --bg-hover: #F0EDE8;
     
-    /* Colores de texto */
-    --text-color: #1f2937;
-    --text-secondary: #6b7280;
-    --text-light: #9ca3af;
+    /* Colores de texto - Modo Claro */
+    --text-color: #334155;           /* Gris Pizarra */
+    --text-secondary: #64748B;
+    --text-light: #94A3B8;
     
     /* Colores de estado */
     --success-color: #10b981;
     --error-color: #ef4444;
     --warning-color: #f59e0b;
     
-    /* Espaciado */
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 1rem;
-    --spacing-lg: 1.5rem;
-    --spacing-xl: 2rem;
-    --spacing-2xl: 3rem;
-    --spacing-3xl: 4rem;
+    /* Material Design - Elevaciones (Sombras) */
+    --elevation-1: 0 1px 3px rgba(94, 23, 235, 0.12), 0 1px 2px rgba(94, 23, 235, 0.08);
+    --elevation-2: 0 3px 6px rgba(94, 23, 235, 0.15), 0 2px 4px rgba(94, 23, 235, 0.12);
+    --elevation-3: 0 10px 20px rgba(94, 23, 235, 0.15), 0 3px 6px rgba(94, 23, 235, 0.10);
+    --elevation-4: 0 15px 25px rgba(94, 23, 235, 0.15), 0 5px 10px rgba(94, 23, 235, 0.08);
     
-    /* Tipografía */
-    --font-size-xs: 0.75rem;
-    --font-size-sm: 0.875rem;
-    --font-size-base: 1rem;
-    --font-size-lg: 1.125rem;
-    --font-size-xl: 1.25rem;
-    --font-size-2xl: 1.5rem;
-    --font-size-3xl: 2rem;
-    --font-size-4xl: 2.5rem;
+    /* Espaciado - Material Design (8px grid) */
+    --spacing-xs: 0.25rem;   /* 4px */
+    --spacing-sm: 0.5rem;    /* 8px */
+    --spacing-md: 1rem;      /* 16px */
+    --spacing-lg: 1.5rem;    /* 24px */
+    --spacing-xl: 2rem;      /* 32px */
+    --spacing-2xl: 3rem;     /* 48px */
+    --spacing-3xl: 4rem;     /* 64px */
     
-    /* Sombras */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    /* Tipografía - Roboto Flex */
+    --font-family: 'Roboto Flex', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-size-xs: 0.75rem;     /* 12px */
+    --font-size-sm: 0.875rem;    /* 14px */
+    --font-size-base: 1rem;      /* 16px */
+    --font-size-lg: 1.125rem;    /* 18px */
+    --font-size-xl: 1.25rem;     /* 20px */
+    --font-size-2xl: 1.5rem;     /* 24px */
+    --font-size-3xl: 2rem;       /* 32px */
+    --font-size-4xl: 2.5rem;     /* 40px */
+    --font-size-5xl: 3rem;       /* 48px */
     
-    /* Bordes */
-    --border-radius-sm: 0.25rem;
-    --border-radius-md: 0.5rem;
-    --border-radius-lg: 0.75rem;
+    /* Pesos de fuente */
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    
+    /* Sombras - Material Design */
+    --shadow-sm: var(--elevation-1);
+    --shadow-md: var(--elevation-2);
+    --shadow-lg: var(--elevation-3);
+    --shadow-xl: var(--elevation-4);
+    
+    /* Bordes - Material Design */
+    --border-radius-sm: 0.25rem;    /* 4px */
+    --border-radius-md: 0.5rem;     /* 8px */
+    --border-radius-lg: 1rem;       /* 16px */
+    --border-radius-xl: 1.5rem;     /* 24px */
     --border-radius-full: 9999px;
     
-    /* Transiciones */
-    --transition-fast: 150ms ease-in-out;
-    --transition-base: 300ms ease-in-out;
-    --transition-slow: 500ms ease-in-out;
+    /* Transiciones - Material Design */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-emphasized: 500ms cubic-bezier(0.05, 0.7, 0.1, 1.0);
     
     /* Contenedor */
     --container-width: 1200px;
 }
 
-/* Modo oscuro (opcional) */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --bg-color: #111827;
-        --bg-secondary: #1f2937;
-        --bg-dark: #030712;
-        --text-color: #f9fafb;
-        --text-secondary: #d1d5db;
-        --text-light: #9ca3af;
-    }
+/* 🌑 Esquema con Fondo Oscuro */
+[data-theme="dark"] {
+    --primary-color: #8B7EF7;        /* Violeta Luminoso */
+    --secondary-color: #5E4DB8;      /* Azul Lila Profundo */
+    --accent-color: #9B89D4;         /* Lavanda Suave Oscura */
+    
+    --bg-color: #1A1A2E;             /* Gris Obsidiana */
+    --bg-secondary: #16213E;
+    --bg-card: #0F1419;
+    --bg-hover: #252A3F;
+    
+    --text-color: #F1F5F9;           /* Blanco Suave */
+    --text-secondary: #CBD5E1;
+    --text-light: #94A3B8;
+    
+    /* Sombras para modo oscuro */
+    --elevation-1: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+    --elevation-2: 0 3px 6px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+    --elevation-3: 0 10px 20px rgba(0, 0, 0, 0.5), 0 3px 6px rgba(0, 0, 0, 0.4);
+    --elevation-4: 0 15px 25px rgba(0, 0, 0, 0.5), 0 5px 10px rgba(0, 0, 0, 0.4);
 }

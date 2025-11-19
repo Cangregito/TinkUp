@@ -15,7 +15,7 @@ export const CONFIG = {
 
     // Configuración de la aplicación
     app: {
-        title: "TinkUp - Portafolio Personal",
+        title: "ThinkUp - Portafolio Personal",
         description: "Portafolio de programación personal",
         version: "1.0.0"
     },

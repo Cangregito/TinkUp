@@ -5,20 +5,24 @@
 
 import { ProjectModel } from '../models/ProjectModel.js';
 import { SkillModel } from '../models/SkillModel.js';
+import { ExperienceModel } from '../models/ExperienceModel.js';
 import { HeaderView } from '../views/HeaderView.js';
 import { ProjectView } from '../views/ProjectView.js';
 import { SkillView } from '../views/SkillView.js';
+import { ExperienceView } from '../views/ExperienceView.js';
 
 export class AppController {
     constructor() {
         // Inicializar Models
         this.projectModel = new ProjectModel();
         this.skillModel = new SkillModel();
+        this.experienceModel = new ExperienceModel();
 
         // Inicializar Views
         this.headerView = new HeaderView();
         this.projectView = new ProjectView();
         this.skillView = new SkillView();
+        this.experienceView = new ExperienceView();
     }
 
     /**
@@ -28,17 +32,17 @@ export class AppController {
         // Cargar datos iniciales
         this.loadData();
 
-        // Renderizar vistas
-        this.renderAll();
+        // Renderizar vistas en orden: A.INICIO, B.PROYECTOS, C.EXPERIENCIA, D.HABILIDADES, E.ACERCA DE
+        this.headerView.render();
+        this.renderHeroSection();      // A. INICIO
+        this.renderProjects();          // B. PROYECTOS
+        this.renderExperience();        // C. EXPERIENCIA
+        this.renderSkills();            // D. HABILIDADES
+        this.renderAboutSection();      // E. ACERCA DE
+        this.renderFooter();
 
         // Configurar event listeners
         this.setupEventListeners();
-
-        // Renderizar otras secciones
-        this.renderHeroSection();
-        this.renderAboutSection();
-        this.renderContactSection();
-        this.renderFooter();
     }
 
     /**
@@ -47,21 +51,46 @@ export class AppController {
     loadData() {
         this.projectModel.loadInitialData();
         this.skillModel.loadInitialData();
+        this.experienceModel.loadInitialData();
     }
 
     /**
      * Renderiza todas las vistas
      */
     renderAll() {
-        this.headerView.render();
-        
+        this.renderProjects();
+        this.renderExperience();
+        this.renderSkills();
+    }
+
+    /**
+     * Renderiza la sección de proyectos
+     */
+    renderProjects() {
         const projects = this.projectModel.getAll();
         if (projects.length > 0) {
             this.projectView.render(projects);
         } else {
             this.projectView.renderEmpty();
         }
+    }
 
+    /**
+     * Renderiza la sección de experiencia
+     */
+    renderExperience() {
+        const experiences = this.experienceModel.sortByDate();
+        if (experiences.length > 0) {
+            this.experienceView.render(experiences);
+        } else {
+            this.experienceView.renderEmpty();
+        }
+    }
+
+    /**
+     * Renderiza la sección de habilidades
+     */
+    renderSkills() {
         const skills = this.skillModel.getAll();
         this.skillView.render(skills);
     }
@@ -75,87 +104,57 @@ export class AppController {
     }
 
     /**
-     * Renderiza la sección Hero
+     * A. INICIO - Renderiza la sección Hero
+     * Tono: Inspirador, Profesional, Cálido, Confidente
      */
     renderHeroSection() {
         const heroElement = document.getElementById('hero');
         heroElement.innerHTML = `
             <div class="hero-content container">
                 <h1 class="hero-title">¡Hola! Soy <span class="highlight">Tu Nombre</span></h1>
-                <p class="hero-subtitle">Desarrollador Web | Programador</p>
+                <p class="hero-subtitle">Desarrollador Web | Creando experiencias digitales</p>
                 <p class="hero-description">
-                    Bienvenido a mi portafolio personal donde comparto mis proyectos y habilidades.
+                    Transformo ideas en soluciones digitales. 
+                    Apasionado por el código limpio, el diseño intuitivo y el crecimiento continuo.
                 </p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary">Ver Proyectos</a>
-                    <a href="#contact" class="btn btn-secondary">Contactar</a>
+                    <a href="#about" class="btn btn-secondary">Conóceme</a>
                 </div>
             </div>
         `;
     }
 
     /**
-     * Renderiza la sección Sobre Mí
+     * E. ACERCA DE - Renderiza la sección Sobre Mí
+     * Tono: Creativo, Colaborativo, Claro, Motivador
      */
     renderAboutSection() {
         const aboutElement = document.getElementById('about');
         aboutElement.innerHTML = `
             <div class="container">
-                <h2 class="section-title">Sobre Mí</h2>
+                <h2 class="section-title">Acerca de Mí</h2>
                 <div class="about-content">
                     <div class="about-image">
                         <img src="./public/assets/images/profile.jpg" alt="Foto de perfil">
                     </div>
                     <div class="about-text">
                         <p>
-                            Soy un desarrollador apasionado por crear experiencias web increíbles.
-                            Me encanta aprender nuevas tecnologías y resolver problemas complejos.
+                            Soy un desarrollador apasionado por crear experiencias digitales únicas.
+                            Mi enfoque combina diseño intuitivo con código limpio y eficiente.
                         </p>
                         <p>
-                            Mi objetivo es construir aplicaciones que no solo funcionen bien,
-                            sino que también brinden una excelente experiencia de usuario.
+                            Creo en el poder de la tecnología para transformar ideas en realidad.
+                            Cada proyecto es una oportunidad para aprender, crecer y superar límites.
+                        </p>
+                        <p>
+                            Mi visión: construir soluciones que no solo funcionen,
+                            sino que inspiren y generen impacto positivo.
                         </p>
                     </div>
                 </div>
             </div>
         `;
-    }
-
-    /**
-     * Renderiza la sección de Contacto
-     */
-    renderContactSection() {
-        const contactElement = document.getElementById('contact');
-        contactElement.innerHTML = `
-            <div class="container">
-                <h2 class="section-title">Contacto</h2>
-                <div class="contact-content">
-                    <form class="contact-form" id="contact-form">
-                        <div class="form-group">
-                            <label for="name">Nombre</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Mensaje</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
-                    </form>
-                    <div class="contact-info">
-                        <h3>Información de Contacto</h3>
-                        <p>📧 Email: tu-email@ejemplo.com</p>
-                        <p>🔗 GitHub: github.com/Cangregito</p>
-                        <p>💼 LinkedIn: linkedin.com/in/tu-perfil</p>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        this.setupContactForm();
     }
 
     /**
@@ -165,26 +164,34 @@ export class AppController {
         const footerElement = document.getElementById('footer');
         footerElement.innerHTML = `
             <div class="container">
-                <p>&copy; ${new Date().getFullYear()} TinkUp. Todos los derechos reservados.</p>
-                <div class="social-links">
-                    <a href="https://github.com/Cangregito" target="_blank">GitHub</a>
-                    <a href="#" target="_blank">LinkedIn</a>
-                    <a href="#" target="_blank">Twitter</a>
+                <div class="footer-content">
+                    <div class="footer-info">
+                        <h3>ThinkUp</h3>
+                        <p>Transformando ideas en experiencias digitales</p>
+                    </div>
+                    <div class="footer-links">
+                        <h4>Contacto</h4>
+                        <p>📧 tu-email@ejemplo.com</p>
+                        <p>🔗 github.com/Cangregito</p>
+                        <p>💼 linkedin.com/in/tu-perfil</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; ${new Date().getFullYear()} ThinkUp. Hecho con ❤️ y mucho café ☕</p>
+                    <div class="social-links">
+                        <a href="https://github.com/Cangregito" target="_blank" aria-label="GitHub">
+                            <span class="material-icons">code</span>
+                        </a>
+                        <a href="#" target="_blank" aria-label="LinkedIn">
+                            <span class="material-icons">work</span>
+                        </a>
+                        <a href="#" target="_blank" aria-label="Twitter">
+                            <span class="material-icons">alternate_email</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         `;
-    }
-
-    /**
-     * Configura el formulario de contacto
-     */
-    setupContactForm() {
-        const form = document.getElementById('contact-form');
-        form?.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('¡Gracias por tu mensaje! (Funcionalidad en desarrollo)');
-            form.reset();
-        });
     }
 
     /**

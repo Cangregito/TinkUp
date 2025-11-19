@@ -9,5 +9,5 @@ document.addEventListener('DOMContentLoaded', () => {
     const app = new AppController();
     app.init();
     
-    console.log('✅ TinkUp Portfolio cargado correctamente');
+    console.log('✅ ThinkUp Portfolio cargado correctamente');
 });
