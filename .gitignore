@@ -1,0 +1,35 @@
+# Ignorar archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Ignorar node_modules si decides usar npm
+node_modules/
+package-lock.json
+
+# Ignorar archivos de logs
+*.log
+logs/
+
+# Ignorar archivos temporales
+*.tmp
+*.temp
+
+# Ignorar archivos de build (si usas un bundler)
+dist/
+build/
+
+# Ignorar archivos de entorno
+.env
+.env.local
+.env.production
+
+# Ignorar carpeta de imágenes grandes (opcional)
+# public/assets/images/*.psd
+# public/assets/images/*.ai

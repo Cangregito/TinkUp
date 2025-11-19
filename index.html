@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portafolio de Programación Personal">
+    <title>TinkUp - Mi Portafolio</title>
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="./public/css/reset.css">
+    <link rel="stylesheet" href="./public/css/variables.css">
+    <link rel="stylesheet" href="./public/css/main.css">
+    <link rel="stylesheet" href="./public/css/components.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header"></header>
+
+    <!-- Contenido Principal -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section id="hero"></section>
+        
+        <!-- Sobre Mí -->
+        <section id="about"></section>
+        
+        <!-- Proyectos -->
+        <section id="projects"></section>
+        
+        <!-- Habilidades -->
+        <section id="skills"></section>
+        
+        <!-- Contacto -->
+        <section id="contact"></section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer"></footer>
+
+    <!-- Scripts MVC -->
+    <script type="module" src="./src/models/ProjectModel.js"></script>
+    <script type="module" src="./src/models/SkillModel.js"></script>
+    <script type="module" src="./src/views/HeaderView.js"></script>
+    <script type="module" src="./src/views/ProjectView.js"></script>
+    <script type="module" src="./src/views/SkillView.js"></script>
+    <script type="module" src="./src/controllers/AppController.js"></script>
+    <script type="module" src="./public/js/app.js"></script>
+</body>
+</html>

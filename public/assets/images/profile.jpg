@@ -1,0 +1,7 @@
+<!-- Placeholder para imagen de perfil -->
+<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="300" fill="#6366f1"/>
+  <text x="50%" y="50%" font-size="24" fill="white" text-anchor="middle" dy=".3em">
+    Tu Foto de Perfil
+  </text>
+</svg>
