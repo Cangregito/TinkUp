@@ -57,10 +57,66 @@ export class ProjectModel {
         this.projects = [
             {
                 id: 1,
-                title: "Proyecto de Ejemplo 1",
-                description: "Descripción del proyecto",
-                technologies: ["HTML", "CSS", "JavaScript"],
-                imageUrl: "./public/assets/images/project1.jpg",
+                title: "Blue Hearth",
+                description: "Aplicación de salud y bienestar",
+                technologies: ["React", "Node.js"],
+                category: "apps",
+                icon: "favorite",
+                demoUrl: "#",
+                githubUrl: "https://github.com/Cangregito",
+                createdAt: new Date()
+            },
+            {
+                id: 2,
+                title: "Victoria Flower Shop",
+                description: "E-commerce para tienda de flores",
+                technologies: ["Vue.js", "MongoDB"],
+                category: "ecommerce",
+                icon: "local_florist",
+                demoUrl: "#",
+                githubUrl: "https://github.com/Cangregito",
+                createdAt: new Date()
+            },
+            {
+                id: 3,
+                title: "Digital Library",
+                description: "Sistema de gestión bibliotecaria",
+                technologies: ["Angular", "PostgreSQL"],
+                category: "apps",
+                icon: "library_books",
+                demoUrl: "#",
+                githubUrl: "https://github.com/Cangregito",
+                createdAt: new Date()
+            },
+            {
+                id: 4,
+                title: "Electronics",
+                description: "Tienda online de electrónicos",
+                technologies: ["React", "Express"],
+                category: "ecommerce",
+                icon: "devices",
+                demoUrl: "#",
+                githubUrl: "https://github.com/Cangregito",
+                createdAt: new Date()
+            },
+            {
+                id: 5,
+                title: "Autofixed",
+                description: "Plataforma de servicios automotrices",
+                technologies: ["Next.js", "Prisma"],
+                category: "apps",
+                icon: "build",
+                demoUrl: "#",
+                githubUrl: "https://github.com/Cangregito",
+                createdAt: new Date()
+            },
+            {
+                id: 6,
+                title: "Traveling",
+                description: "App de viajes y turismo",
+                technologies: ["Flutter", "Firebase"],
+                category: "apps",
+                icon: "flight",
                 demoUrl: "#",
                 githubUrl: "https://github.com/Cangregito",
                 createdAt: new Date()

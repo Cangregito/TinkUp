@@ -111,15 +111,39 @@ export class AppController {
         const heroElement = document.getElementById('hero');
         heroElement.innerHTML = `
             <div class="hero-content container">
-                <h1 class="hero-title">¡Hola! Soy <span class="highlight">Tu Nombre</span></h1>
-                <p class="hero-subtitle">Desarrollador Web | Creando experiencias digitales</p>
-                <p class="hero-description">
-                    Transformo ideas en soluciones digitales. 
-                    Apasionado por el código limpio, el diseño intuitivo y el crecimiento continuo.
-                </p>
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">Ver Proyectos</a>
-                    <a href="#about" class="btn btn-secondary">Conóceme</a>
+                <div class="hero-profile">
+                    <div class="profile-decoration left">
+                        <span class="material-icons">arrow_back</span>
+                    </div>
+                    <div class="profile-info">
+                        <h1 class="hero-title">Erick De Santiago</h1>
+                        <p class="hero-description">
+                            Desarrollador apasionado por crear experiencias digitales únicas.
+                            Mi enfoque combina diseño intuitivo con código limpio y eficiente,
+                            transformando ideas en soluciones innovadoras.
+                        </p>
+                    </div>
+                    <div class="profile-decoration right">
+                        <span class="material-icons">arrow_forward</span>
+                    </div>
+                </div>
+                
+                <div class="hero-cards">
+                    <a href="#projects" class="hero-card">
+                        <span class="material-icons card-icon">work</span>
+                        <h3>Proyectos</h3>
+                        <p>Explora mi portafolio de trabajos</p>
+                    </a>
+                    <a href="#experience" class="hero-card">
+                        <span class="material-icons card-icon">business_center</span>
+                        <h3>Experiencia</h3>
+                        <p>Conoce mi trayectoria profesional</p>
+                    </a>
+                    <a href="#skills" class="hero-card">
+                        <span class="material-icons card-icon">code</span>
+                        <h3>Habilidades</h3>
+                        <p>Descubre mis competencias técnicas</p>
+                    </a>
                 </div>
             </div>
         `;
@@ -134,23 +158,59 @@ export class AppController {
         aboutElement.innerHTML = `
             <div class="container">
                 <h2 class="section-title">Acerca de Mí</h2>
-                <div class="about-content">
-                    <div class="about-image">
-                        <img src="./public/assets/images/profile.jpg" alt="Foto de perfil">
+                <p class="section-subtitle">Conoce más sobre mis pasiones, intereses y lo que me inspira</p>
+                
+                <div class="about-blocks">
+                    <div class="about-card">
+                        <div class="about-card-header">
+                            <span class="material-icons">favorite</span>
+                            <h3>Pasiones</h3>
+                        </div>
+                        <ul class="about-list">
+                            <li>Crear soluciones tecnológicas que impacten positivamente en la vida de las personas</li>
+                            <li>Aprender constantemente nuevas tecnologías y metodologías de desarrollo</li>
+                            <li>Colaborar en proyectos de código abierto y contribuir a la comunidad</li>
+                            <li>Diseñar interfaces intuitivas que mejoren la experiencia del usuario</li>
+                        </ul>
                     </div>
-                    <div class="about-text">
-                        <p>
-                            Soy un desarrollador apasionado por crear experiencias digitales únicas.
-                            Mi enfoque combina diseño intuitivo con código limpio y eficiente.
-                        </p>
-                        <p>
-                            Creo en el poder de la tecnología para transformar ideas en realidad.
-                            Cada proyecto es una oportunidad para aprender, crecer y superar límites.
-                        </p>
-                        <p>
-                            Mi visión: construir soluciones que no solo funcionen,
-                            sino que inspiren y generen impacto positivo.
-                        </p>
+                    
+                    <div class="about-card">
+                        <div class="about-card-header">
+                            <span class="material-icons">music_note</span>
+                            <h3>Música</h3>
+                        </div>
+                        <ul class="about-list">
+                            <li>La música electrónica me ayuda a concentrarme durante largas sesiones de código</li>
+                            <li>Disfruto del jazz mientras diseño interfaces y planifico arquitecturas</li>
+                            <li>El rock clásico es mi compañero en sesiones de debugging intensivas</li>
+                            <li>Descubrir nuevos artistas y géneros musicales constantemente</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="about-card">
+                        <div class="about-card-header">
+                            <span class="material-icons">interests</span>
+                            <h3>Hobbies</h3>
+                        </div>
+                        <ul class="about-list">
+                            <li>Fotografía digital y edición de imágenes en mis tiempos libres</li>
+                            <li>Practicar senderismo y explorar nuevos lugares naturales</li>
+                            <li>Leer sobre filosofía, ciencia ficción y desarrollo personal</li>
+                            <li>Experimentar con nuevas recetas de cocina internacional</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="about-card">
+                        <div class="about-card-header">
+                            <span class="material-icons">lightbulb</span>
+                            <h3>Intereses</h3>
+                        </div>
+                        <ul class="about-list">
+                            <li>Inteligencia artificial y machine learning aplicado al desarrollo web</li>
+                            <li>Arquitecturas de software escalables y patrones de diseño</li>
+                            <li>Metodologías ágiles y mejores prácticas de desarrollo en equipo</li>
+                            <li>Accesibilidad web y diseño inclusivo para todos los usuarios</li>
+                        </ul>
                     </div>
                 </div>
             </div>
