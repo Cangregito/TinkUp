@@ -12,6 +12,77 @@ Portafolio de programación personal desarrollado con arquitectura MVC usando te
 - ✅ Formulario de contacto
 - ✅ Sección de proyectos dinámica
 - ✅ Visualización de habilidades con barras de progreso
+- ✅ **Sistema completo de accesibilidad (WCAG)**
+
+## ♿ Funcionalidades de Accesibilidad
+
+### Características Principales
+
+- **Alto Contraste**: Modo de colores de alto contraste para usuarios con discapacidad visual
+- **Ajuste de Tamaño de Texto**: 4 niveles de tamaño (pequeño, normal, grande, extra grande)
+- **Movimiento Reducido**: Desactiva animaciones para usuarios sensibles al movimiento
+- **Navegación por Teclado**: Soporte completo para navegación sin ratón
+- **Lectores de Pantalla**: Anuncios ARIA para cambios importantes
+- **Skip Links**: Enlace invisible para saltar directamente al contenido principal
+- **Persistencia**: Las preferencias se guardan automáticamente en localStorage
+
+### Botones de Acceso Rápido (Header)
+
+En la barra de navegación superior encontrarás:
+
+1. **Botón de Contraste** (icono de contraste)
+   - Click para activar/desactivar alto contraste
+   - Se marca visualmente cuando está activo
+   - Atajo: `Alt + C`
+
+2. **Botón de Tamaño de Fuente** (icono de texto)
+   - Click para aumentar el tamaño del texto
+   - Muestra un indicador numérico (1-4) del nivel actual
+   - Atajo: `Alt + +` (aumentar) / `Alt + -` (disminuir)
+
+3. **Botón de Panel de Accesibilidad** (icono de persona)
+   - Abre el panel completo de opciones de accesibilidad
+   - Atajo: `Alt + A`
+
+### Atajos de Teclado
+
+| Atajo | Acción |
+|-------|--------|
+| `Alt + A` | Abrir/cerrar panel de accesibilidad |
+| `Alt + C` | Activar/desactivar alto contraste |
+| `Alt + +` | Aumentar tamaño de texto |
+| `Alt + -` | Disminuir tamaño de texto |
+| `Ctrl + Home` | Ir al inicio de la página |
+| `Ctrl + End` | Ir al final de la página |
+| `Tab` | Navegar entre elementos interactivos |
+| `Escape` | Cerrar panel de accesibilidad |
+
+### Panel de Accesibilidad
+
+El panel lateral deslizable incluye:
+
+- **Toggle de Alto Contraste**: Interruptor para activar/desactivar
+- **Controles de Tamaño de Fuente**: Botones A- y A+ con indicador del tamaño actual
+- **Toggle de Movimiento Reducido**: Desactiva todas las animaciones
+- **Lista de Atajos**: Referencia rápida de todos los atajos de teclado
+
+### Botón Flotante
+
+Un botón circular con el icono de accesibilidad permanece visible en la esquina inferior derecha de la pantalla para acceso rápido al panel.
+
+### Detección Automática
+
+El sistema detecta automáticamente las preferencias del sistema operativo:
+
+- **prefers-reduced-motion**: Detecta si el usuario ha configurado movimiento reducido en su SO
+- **prefers-contrast**: Detecta preferencia de alto contraste
+- **prefers-color-scheme**: Adapta el panel al modo oscuro/claro del sistema
+
+### Responsive
+
+- En dispositivos móviles, los botones de acceso rápido se ocultan para ahorrar espacio
+- El panel de accesibilidad ocupa toda la pantalla en móviles
+- El botón flotante se ajusta al tamaño de la pantalla
 
 ## 📁 Estructura del Proyecto
 
@@ -24,7 +95,8 @@ ThinkUp/
 │   │   ├── reset.css         # Reset CSS
 │   │   ├── variables.css     # Variables CSS (colores, espaciado, etc.)
 │   │   ├── main.css          # Estilos principales
-│   │   └── components.css    # Componentes reutilizables
+│   │   ├── components.css    # Componentes reutilizables
+│   │   └── accessibility.css # Estilos de accesibilidad
 │   ├── js/
 │   │   └── app.js            # Punto de entrada de la aplicación
 │   └── assets/
@@ -40,7 +112,8 @@ ThinkUp/
     ├── controllers/          # Controllers (Lógica de negocio)
     │   └── AppController.js  # Controlador principal
     └── utils/                # Utilidades
-        └── helpers.js        # Funciones auxiliares
+        ├── helpers.js        # Funciones auxiliares
+        └── AccessibilityManager.js  # Gestor de accesibilidad
 ```
 
 ## 🎨 Arquitectura MVC

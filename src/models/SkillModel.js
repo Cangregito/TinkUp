@@ -45,14 +45,27 @@ export class SkillModel {
     }
 
     /**
-     * Carga habilidades iniciales
+     * Carga habilidades iniciales (datos de ejemplo o de una persona)
+     * @param {array} skillsData - Array de habilidades a cargar
      */
-    loadInitialData() {
-        this.skills = [
-            { id: 1, name: "HTML5", category: "Frontend", level: 90, icon: "html5" },
-            { id: 2, name: "CSS3", category: "Frontend", level: 85, icon: "css3" },
-            { id: 3, name: "JavaScript", category: "Frontend", level: 80, icon: "js" },
-            { id: 4, name: "Git", category: "Herramientas", level: 75, icon: "git" }
-        ];
+    loadInitialData(skillsData = []) {
+        if (skillsData && skillsData.length > 0) {
+            // Cargar datos de persona específica
+            this.skills = skillsData.map((skill, index) => ({
+                id: skill.id || index + 1,
+                name: skill.name,
+                category: skill.category || 'General',
+                level: skill.level || 50,
+                icon: skill.icon || ''
+            }));
+        } else {
+            // Cargar datos de ejemplo por defecto
+            this.skills = [
+                { id: 1, name: "HTML5", category: "Frontend", level: 90, icon: "html5" },
+                { id: 2, name: "CSS3", category: "Frontend", level: 85, icon: "css3" },
+                { id: 3, name: "JavaScript", category: "Frontend", level: 80, icon: "js" },
+                { id: 4, name: "Git", category: "Herramientas", level: 75, icon: "git" }
+            ];
+        }
     }
 }

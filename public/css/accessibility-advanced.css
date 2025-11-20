@@ -1,0 +1,533 @@
+/* ============================================
+   ESTILOS AVANZADOS DE ACCESIBILIDAD
+   Funcionalidades WCAG AAA
+   ============================================ */
+
+/* ============================================
+   PERFILES RÁPIDOS
+   ============================================ */
+.accessibility-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--bg-hover);
+}
+
+.accessibility-section:last-child {
+    border-bottom: none;
+}
+
+.accessibility-section h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.accessibility-section h3 .material-icons {
+    font-size: 20px;
+    color: var(--primary-color);
+}
+
+.profile-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+}
+
+.profile-btn {
+    padding: 0.6rem;
+    background: var(--bg-secondary);
+    color: var(--text-color);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.profile-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.profile-btn:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   CONTROLES DE ACCESIBILIDAD
+   ============================================ */
+.accessibility-toggle-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: var(--bg-secondary);
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.accessibility-toggle-label:hover {
+    background: var(--bg-hover);
+}
+
+.accessibility-toggle-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.accessibility-control {
+    margin-bottom: 1rem;
+}
+
+.accessibility-control label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.accessibility-control select {
+    width: 100%;
+    padding: 0.6rem;
+    background: var(--bg-secondary);
+    color: var(--text-color);
+    border: 1px solid var(--text-light);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.accessibility-control select:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    border-color: var(--primary-color);
+}
+
+.accessibility-control .control-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+/* ============================================
+   CONTROLES TTS (Text-to-Speech)
+   ============================================ */
+.tts-controls {
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    background: var(--bg-secondary);
+    border-radius: 6px;
+}
+
+.tts-controls label {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-color);
+}
+
+.tts-controls input[type="range"] {
+    width: 100%;
+    margin-top: 0.5rem;
+    cursor: pointer;
+}
+
+.tts-controls span {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Indicador visual cuando TTS está activo */
+.tts-active {
+    cursor: crosshair;
+}
+
+.tts-active ::selection {
+    background-color: rgba(94, 23, 235, 0.3);
+}
+
+/* ============================================
+   BOTÓN RESTABLECER
+   ============================================ */
+.btn-reset {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.75rem;
+    background: transparent;
+    color: var(--error-color, #ef4444);
+    border: 2px solid var(--error-color, #ef4444);
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-reset:hover {
+    background: var(--error-color, #ef4444);
+    color: white;
+}
+
+.btn-reset .material-icons {
+    font-size: 20px;
+}
+
+/* ============================================
+   MODOS DE DALTONISMO (Filtros CSS)
+   ============================================ */
+
+/* Protanopia (Deficiencia de rojo) */
+.colorblind-protanopia {
+    filter: 
+        saturate(0.6)
+        hue-rotate(20deg)
+        brightness(1.05);
+}
+
+/* Deuteranopia (Deficiencia de verde) */
+.colorblind-deuteranopia {
+    filter: 
+        saturate(0.5)
+        hue-rotate(15deg)
+        contrast(1.05);
+}
+
+/* Tritanopia (Deficiencia de azul-amarillo) */
+.colorblind-tritanopia {
+    filter: 
+        saturate(0.7)
+        hue-rotate(-20deg)
+        brightness(1.02);
+}
+
+/* Escala de grises */
+.colorblind-grayscale {
+    filter: grayscale(100%);
+}
+
+/* Colores invertidos */
+.colorblind-inverted {
+    filter: invert(100%) hue-rotate(180deg);
+}
+
+/* Prevenir doble filtrado en elementos hijos */
+.colorblind-protanopia *,
+.colorblind-deuteranopia *,
+.colorblind-tritanopia *,
+.colorblind-grayscale *,
+.colorblind-inverted * {
+    filter: none;
+}
+
+/* ============================================
+   ESPACIADO DE LÍNEAS
+   ============================================ */
+.line-spacing-compact,
+.line-spacing-compact * {
+    line-height: 1.2 !important;
+}
+
+.line-spacing-normal,
+.line-spacing-normal * {
+    line-height: 1.6 !important;
+}
+
+.line-spacing-relaxed,
+.line-spacing-relaxed * {
+    line-height: 1.8 !important;
+}
+
+.line-spacing-extra-relaxed,
+.line-spacing-extra-relaxed * {
+    line-height: 2.2 !important;
+}
+
+/* ============================================
+   ESPACIADO DE LETRAS
+   ============================================ */
+.letter-spacing-compact,
+.letter-spacing-compact * {
+    letter-spacing: -0.02em !important;
+}
+
+.letter-spacing-normal,
+.letter-spacing-normal * {
+    letter-spacing: 0 !important;
+}
+
+.letter-spacing-wide,
+.letter-spacing-wide * {
+    letter-spacing: 0.05em !important;
+}
+
+.letter-spacing-extra-wide,
+.letter-spacing-extra-wide * {
+    letter-spacing: 0.1em !important;
+}
+
+/* ============================================
+   TAMAÑO DE CURSOR
+   ============================================ */
+.cursor-normal {
+    cursor: default;
+}
+
+.cursor-large,
+.cursor-large * {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M5 5 L5 25 L12 18 L15 27 L18 26 L15 17 L22 17 Z" fill="black" stroke="white" stroke-width="1"/></svg>') 0 0, auto;
+}
+
+.cursor-extra-large,
+.cursor-extra-large * {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path d="M6 6 L6 38 L18 27 L23 41 L27 39 L22 25 L34 25 Z" fill="black" stroke="white" stroke-width="2"/></svg>') 0 0, auto;
+}
+
+/* ============================================
+   MÁSCARA DE LECTURA
+   ============================================ */
+.reading-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+}
+
+.reading-mask-top,
+.reading-mask-bottom {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    transition: height 0.1s ease, top 0.1s ease;
+}
+
+.reading-mask-top {
+    top: 0;
+}
+
+.reading-mask-bottom {
+    bottom: 0;
+    height: calc(100% - 200px);
+}
+
+.reading-mask-focus {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    border-top: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    box-shadow: 
+        0 -5px 15px rgba(94, 23, 235, 0.3),
+        0 5px 15px rgba(94, 23, 235, 0.3);
+    transition: top 0.1s ease;
+}
+
+/* ============================================
+   GUÍA DE LECTURA
+   ============================================ */
+.reading-guide {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--primary-color);
+    box-shadow: 0 0 10px rgba(94, 23, 235, 0.8);
+    pointer-events: none;
+    z-index: 9998;
+    transition: top 0.05s ease;
+}
+
+.reading-guide::before,
+.reading-guide::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: var(--primary-color);
+    border-radius: 50%;
+}
+
+.reading-guide::before {
+    left: 0;
+}
+
+.reading-guide::after {
+    right: 0;
+}
+
+/* ============================================
+   RESALTAR ENLACES
+   ============================================ */
+.highlight-links a {
+    background: rgba(94, 23, 235, 0.2);
+    padding: 2px 4px;
+    border-radius: 3px;
+    border-bottom: 2px solid var(--primary-color);
+    font-weight: 600;
+}
+
+.highlight-links a:hover {
+    background: rgba(94, 23, 235, 0.3);
+}
+
+/* ============================================
+   OCULTAR IMÁGENES
+   ============================================ */
+.hide-images img:not([alt=""]):not(.accessibility-toggle .material-icons) {
+    max-height: 60px;
+    filter: blur(5px) grayscale(100%);
+    opacity: 0.3;
+}
+
+.hide-images img[alt=""],.hide-images img[role="presentation"] {
+    display: none;
+}
+
+.hide-images img::after {
+    content: attr(alt);
+    display: block;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    border-radius: 6px;
+}
+
+/* ============================================
+   MODO SIMPLIFICADO
+   ============================================ */
+.simplified-mode {
+    background: var(--bg-color) !important;
+}
+
+.simplified-mode * {
+    animation: none !important;
+    transition: none !important;
+    background-image: none !important;
+    box-shadow: none !important;
+}
+
+.simplified-mode [class*="decoration"],
+.simplified-mode [class*="ornament"],
+.simplified-mode aside:not(.accessibility-panel) {
+    display: none !important;
+}
+
+/* ============================================
+   FUENTE PARA DISLEXIA
+   ============================================ */
+/* Lexend es más ligera y legible que OpenDyslexic */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap');
+
+.dyslexia-font {
+    font-family: 'Lexend', 'Comic Sans MS', sans-serif !important;
+}
+
+.dyslexia-font p,
+.dyslexia-font h1,
+.dyslexia-font h2,
+.dyslexia-font h3,
+.dyslexia-font h4,
+.dyslexia-font h5,
+.dyslexia-font h6,
+.dyslexia-font li,
+.dyslexia-font span,
+.dyslexia-font a,
+.dyslexia-font label,
+.dyslexia-font button:not(.material-icons),
+.dyslexia-font input,
+.dyslexia-font textarea {
+    font-family: 'Lexend', 'Comic Sans MS', sans-serif !important;
+}
+
+/* NO aplicar a íconos ni elementos especiales */
+.dyslexia-font .material-icons,
+.dyslexia-font i[class*="icon"],
+.dyslexia-font .icon,
+.dyslexia-font code,
+.dyslexia-font pre {
+    font-family: inherit !important;
+}
+
+/* ============================================
+   RESPONSIVE - PANEL AVANZADO
+   ============================================ */
+@media (max-width: 768px) {
+    .profile-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .tts-controls {
+        font-size: 0.8rem;
+    }
+
+    .accessibility-section h3 {
+        font-size: 0.95rem;
+    }
+}
+
+/* ============================================
+   TEMA OSCURO - CONTROLES AVANZADOS
+   ============================================ */
+[data-theme="dark"] .profile-btn {
+    border-color: rgba(139, 126, 247, 0.3);
+}
+
+[data-theme="dark"] .profile-btn:hover {
+    border-color: var(--primary-color);
+}
+
+[data-theme="dark"] .accessibility-control select {
+    background: var(--bg-card);
+}
+
+[data-theme="dark"] .reading-mask-focus {
+    border-color: var(--primary-color);
+}
+
+[data-theme="dark"] .reading-guide {
+    background: var(--accent-color);
+    box-shadow: 0 0 10px rgba(155, 137, 212, 0.8);
+}
+
+/* ============================================
+   ALTO CONTRASTE - CONTROLES AVANZADOS
+   ============================================ */
+.high-contrast .profile-btn {
+    border: 2px solid var(--text-color);
+    font-weight: 700;
+}
+
+.high-contrast .accessibility-control select {
+    border: 2px solid var(--text-color);
+}
+
+.high-contrast .reading-mask-top,
+.high-contrast .reading-mask-bottom {
+    background: rgba(0, 0, 0, 0.9);
+}

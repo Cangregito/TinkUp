@@ -56,9 +56,30 @@ export class ExperienceModel {
     }
 
     /**
-     * Carga experiencias iniciales (datos de ejemplo)
+     * Carga experiencias iniciales (datos de ejemplo o de una persona)
+     * @param {array} experiencesData - Array de experiencias a cargar
      */
-    loadInitialData() {
+    loadInitialData(experiencesData = []) {
+        if (experiencesData && experiencesData.length > 0) {
+            // Cargar datos de persona específica
+            this.experiences = experiencesData.map((exp, index) => ({
+                id: exp.id || index + 1,
+                company: exp.company,
+                position: exp.position,
+                role: exp.position, // Alias para compatibilidad
+                period: `${exp.startDate} - ${exp.endDate}`,
+                startDate: exp.startDate,
+                endDate: exp.endDate,
+                description: exp.description || '',
+                achievements: exp.achievements || [],
+                technologies: exp.technologies || [],
+                logo: exp.logo || '',
+                location: exp.location || 'N/A'
+            }));
+            return;
+        }
+        
+        // Cargar datos de ejemplo por defecto
         this.experiences = [
             {
                 id: 1,

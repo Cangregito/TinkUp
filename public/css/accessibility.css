@@ -1,0 +1,713 @@
+/* ============================================
+   ESTILOS DE ACCESIBILIDAD
+   ============================================ */
+
+/* ============================================
+   BOTONES DE ACCESIBILIDAD EN HEADER
+   ============================================ */
+
+/* Botones de acceso rápido en el header */
+.accessibility-quick-btn {
+    position: relative;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.accessibility-quick-btn:hover {
+    border-color: var(--primary-color);
+}
+
+/* Estado activo del botón de contraste */
+.accessibility-quick-btn.active {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.accessibility-quick-btn.active:hover {
+    background-color: var(--secondary-color) !important;
+}
+
+/* Indicador de tamaño de fuente */
+#font-size-toggle::after {
+    content: attr(data-size);
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    background: var(--accent-color);
+    color: white;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--bg-card);
+}
+
+#font-size-toggle[data-size="2"]::after {
+    opacity: 0;
+}
+
+/* Separador visual entre botones de accesibilidad y botones generales */
+#contrast-toggle {
+    margin-right: 8px;
+    border-right: 1px solid rgba(128, 128, 128, 0.2);
+    padding-right: 8px;
+}
+
+/* Animación de pulso para el botón principal de accesibilidad */
+#accessibility-btn {
+    animation: pulse-accessibility 3s ease-in-out infinite;
+}
+
+@keyframes pulse-accessibility {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(94, 23, 235, 0);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(94, 23, 235, 0.3);
+    }
+}
+
+/* Animación en modo oscuro */
+[data-theme="dark"] #accessibility-btn {
+    animation: pulse-accessibility-dark 3s ease-in-out infinite;
+}
+
+@keyframes pulse-accessibility-dark {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(139, 126, 247, 0);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(139, 126, 247, 0.3);
+    }
+}
+
+#accessibility-btn:hover {
+    animation: none;
+}
+
+/* Tooltips mejorados para botones de accesibilidad */
+.accessibility-quick-btn[title]::before,
+#accessibility-btn[title]::before {
+    content: attr(title);
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%) scale(0);
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    pointer-events: none;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    opacity: 0;
+    z-index: 1000;
+}
+
+.accessibility-quick-btn[title]:hover::before,
+#accessibility-btn[title]:hover::before {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+}
+
+/* Skip Link - Enlace para saltar al contenido principal */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    z-index: 10000;
+    border-radius: 0 0 0.5rem 0;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Screen Reader Only - Contenido solo para lectores de pantalla */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Botón flotante de accesibilidad */
+.accessibility-toggle {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 9999;
+}
+
+.accessibility-toggle:hover {
+    background: var(--secondary-color);
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.accessibility-toggle:focus {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 3px;
+}
+
+.accessibility-toggle .material-icons {
+    font-size: 28px;
+}
+
+/* Panel de Accesibilidad */
+.accessibility-panel {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 100%;
+    max-width: 400px;
+    height: 100vh;
+    background: var(--bg-card);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    transition: right 0.3s ease;
+    overflow-y: auto;
+}
+
+.accessibility-panel.open {
+    right: 0;
+}
+
+.accessibility-panel[aria-hidden="true"] {
+    display: none;
+}
+
+.accessibility-panel__content {
+    padding: 1.5rem;
+}
+
+.accessibility-panel__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--bg-hover);
+}
+
+.accessibility-panel__header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.accessibility-panel__close {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+}
+
+.accessibility-panel__close:hover {
+    color: var(--text-color);
+}
+
+.accessibility-panel__close:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Mejora visual para modo oscuro */
+[data-theme="dark"] .accessibility-panel {
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.7);
+}
+
+[data-theme="dark"] .accessibility-option {
+    border: 1px solid rgba(139, 126, 247, 0.2);
+}
+
+[data-theme="dark"] .accessibility-shortcuts {
+    border: 1px solid rgba(139, 126, 247, 0.2);
+}
+
+[data-theme="dark"] .font-size-controls span {
+    color: var(--text-color);
+}
+
+/* Opciones de Accesibilidad */
+.accessibility-option {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+}
+
+.accessibility-option label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.accessibility-option .material-icons {
+    color: var(--primary-color);
+    font-size: 24px;
+}
+
+.accessibility-option input[type="checkbox"] {
+    margin-left: auto;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.accessibility-option__label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 0.75rem;
+}
+
+/* Controles de Tamaño de Fuente */
+.font-size-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.font-size-controls button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.font-size-controls button:hover {
+    background: var(--secondary-color);
+}
+
+.font-size-controls button:focus {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.font-size-controls span {
+    min-width: 100px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Atajos de Teclado */
+.accessibility-shortcuts {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: var(--bg-hover);
+    border-radius: 8px;
+}
+
+.accessibility-shortcuts h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+.accessibility-shortcuts ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.accessibility-shortcuts li {
+    padding: 0.5rem 0;
+    color: var(--text-secondary);
+}
+
+.accessibility-shortcuts kbd {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--text-light);
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.9em;
+    color: var(--text-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================
+   MODO ALTO CONTRASTE
+   ============================================ */
+
+/* Alto contraste en modo claro */
+.high-contrast:not([data-theme="dark"]) {
+    --bg-color: #FFFFFF;
+    --bg-card: #FFFFFF;
+    --bg-secondary: #F5F5F5;
+    --bg-hover: #E0E0E0;
+    --text-color: #000000;
+    --text-secondary: #1a1a1a;
+    --text-light: #333333;
+    --primary-color: #0000FF;
+    --secondary-color: #000080;
+    --accent-color: #FF0000;
+}
+
+.high-contrast:not([data-theme="dark"]) body {
+    background: #FFFFFF;
+    color: #000000;
+}
+
+.high-contrast:not([data-theme="dark"]) .accessibility-panel {
+    background: #FFFFFF;
+    border-left: 4px solid #000000;
+    color: #000000;
+}
+
+.high-contrast:not([data-theme="dark"]) .accessibility-option {
+    background: #F5F5F5;
+    border: 2px solid #000000;
+}
+
+.high-contrast:not([data-theme="dark"]) .accessibility-shortcuts {
+    background: #F5F5F5;
+    border: 2px solid #000000;
+}
+
+.high-contrast:not([data-theme="dark"]) .accessibility-shortcuts kbd {
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    color: #000000;
+}
+
+.high-contrast:not([data-theme="dark"]) .accessibility-panel__header {
+    border-bottom-color: #000000;
+    border-bottom-width: 3px;
+}
+
+.high-contrast:not([data-theme="dark"]) a {
+    color: #0000FF;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.high-contrast:not([data-theme="dark"]) button {
+    border: 2px solid #000000;
+    font-weight: 600;
+}
+
+.high-contrast:not([data-theme="dark"]) .font-size-controls button {
+    background: #0000FF;
+    color: #FFFFFF;
+    border: 2px solid #000000;
+}
+
+.high-contrast:not([data-theme="dark"]) .font-size-controls button:hover {
+    background: #000080;
+}
+
+/* Alto contraste en modo oscuro */
+.high-contrast[data-theme="dark"] {
+    --bg-color: #000000;
+    --bg-card: #000000;
+    --bg-secondary: #1a1a1a;
+    --bg-hover: #2a2a2a;
+    --text-color: #FFFFFF;
+    --text-secondary: #e0e0e0;
+    --text-light: #cccccc;
+    --primary-color: #FFFF00;
+    --secondary-color: #FFD700;
+    --accent-color: #00FFFF;
+}
+
+.high-contrast[data-theme="dark"] body {
+    background: #000000;
+    color: #FFFFFF;
+}
+
+.high-contrast[data-theme="dark"] .accessibility-panel {
+    background: #000000;
+    border-left: 4px solid #FFFFFF;
+    color: #FFFFFF;
+}
+
+.high-contrast[data-theme="dark"] .accessibility-option {
+    background: #1a1a1a;
+    border: 2px solid #FFFFFF;
+}
+
+.high-contrast[data-theme="dark"] .accessibility-shortcuts {
+    background: #1a1a1a;
+    border: 2px solid #FFFFFF;
+}
+
+.high-contrast[data-theme="dark"] .accessibility-shortcuts kbd {
+    background: #000000;
+    border: 2px solid #FFFFFF;
+    color: #FFFFFF;
+}
+
+.high-contrast[data-theme="dark"] .accessibility-panel__header {
+    border-bottom-color: #FFFFFF;
+    border-bottom-width: 3px;
+}
+
+.high-contrast[data-theme="dark"] a {
+    color: #FFFF00;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.high-contrast[data-theme="dark"] button {
+    border: 2px solid #FFFFFF;
+    font-weight: 600;
+}
+
+.high-contrast[data-theme="dark"] .font-size-controls button {
+    background: #FFFF00;
+    color: #000000;
+    border: 2px solid #FFFFFF;
+}
+
+.high-contrast[data-theme="dark"] .font-size-controls button:hover {
+    background: #FFD700;
+}
+
+/* Estilos comunes para ambos modos de alto contraste */
+.high-contrast .accessibility-panel__close:hover {
+    background: var(--bg-hover);
+}
+
+.high-contrast input[type="checkbox"] {
+    border: 2px solid var(--text-color);
+    width: 24px;
+    height: 24px;
+}
+
+.high-contrast .material-icons {
+    font-weight: bold;
+}
+
+.high-contrast .accessibility-toggle {
+    border: 3px solid var(--text-color);
+}
+
+.high-contrast *:focus {
+    outline: 3px solid var(--accent-color) !important;
+    outline-offset: 3px;
+}
+
+/* ============================================
+   TAMAÑOS DE FUENTE
+   ============================================ */
+.font-small {
+    font-size: 14px;
+}
+
+.font-normal {
+    font-size: 16px;
+}
+
+.font-large {
+    font-size: 18px;
+}
+
+.font-extra-large {
+    font-size: 20px;
+}
+
+/* Escalar elementos proporcionalmenste */
+.font-large h1 { font-size: 2.75rem; }
+.font-large h2 { font-size: 2.25rem; }
+.font-large h3 { font-size: 1.875rem; }
+
+.font-extra-large h1 { font-size: 3rem; }
+.font-extra-large h2 { font-size: 2.5rem; }
+.font-extra-large h3 { font-size: 2rem; }
+
+/* ============================================
+   MOVIMIENTO REDUCIDO
+   ============================================ */
+.reduced-motion *,
+.reduced-motion *::before,
+.reduced-motion *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+}
+
+/* ============================================
+   INDICADORES DE FOCO MEJORADOS
+   ============================================ */
+.focus-visible :focus,
+.keyboard-nav :focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 3px;
+}
+
+.focus-visible a:focus,
+.keyboard-nav a:focus {
+    outline-color: var(--accent-color);
+    border-radius: 2px;
+}
+
+.focus-visible button:focus,
+.keyboard-nav button:focus {
+    outline-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(94, 23, 235, 0.2);
+}
+
+/* Mejoras de focus para modo oscuro */
+[data-theme="dark"] .focus-visible button:focus,
+[data-theme="dark"] .keyboard-nav button:focus {
+    box-shadow: 0 0 0 4px rgba(139, 126, 247, 0.3);
+}
+
+/* ============================================
+   MEJORAS DE NAVEGACIÓN POR TECLADO
+   ============================================ */
+.keyboard-nav [tabindex="0"],
+.keyboard-nav [tabindex="-1"]:focus {
+    outline: 2px dashed var(--primary-color);
+    outline-offset: 4px;
+}
+
+/* Enlaces interactivos */
+a[data-interactive],
+button[data-interactive],
+[role="button"] {
+    cursor: pointer;
+}
+
+[data-interactive]:focus {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   RESPONSIVE - ACCESIBILIDAD EN MÓVILES
+   ============================================ */
+@media (max-width: 768px) {
+    .accessibility-panel {
+        max-width: 100%;
+        right: -100%;
+    }
+
+    .accessibility-toggle {
+        bottom: 1rem;
+        right: 1rem;
+        width: 56px;
+        height: 56px;
+    }
+
+    .accessibility-toggle .material-icons {
+        font-size: 24px;
+    }
+
+    .font-size-controls {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .accessibility-shortcuts {
+        font-size: 0.9rem;
+    }
+
+    /* Ocultar botones de acceso rápido en móviles pequeños */
+    .accessibility-quick-btn {
+        display: none;
+    }
+
+    /* Mantener solo el botón principal de accesibilidad */
+    #accessibility-btn {
+        display: flex;
+    }
+
+    /* Tooltips en móvil */
+    .accessibility-quick-btn[title]::before,
+    #accessibility-btn[title]::before {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    /* En pantallas muy pequeñas, reducir aún más */
+    #contrast-toggle,
+    #font-size-toggle {
+        display: none !important;
+    }
+}
+
+/* ============================================
+   PREFERS REDUCIDO MOTION (Sistema)
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ============================================
+   OVERLAY PARA PANEL (opcional)
+   ============================================ */
+.accessibility-panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.accessibility-panel-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}

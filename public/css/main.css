@@ -202,9 +202,17 @@
 .hero-title {
     font-size: var(--font-size-4xl);
     font-weight: var(--font-weight-bold);
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
     color: var(--text-color);
     letter-spacing: -1px;
+}
+
+.hero-role {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-md);
+    font-style: italic;
 }
 
 .hero-description {
@@ -583,5 +591,176 @@ footer {
     .dropdown-item {
         padding: var(--spacing-lg);
         font-size: var(--font-size-lg);
+    }
+}
+
+/* ===================================
+   SELECTOR DE PERSONAS (CV)
+   =================================== */
+
+.person-selector-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.person-selector .person-toggle {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: linear-gradient(135deg, var(--primary-color) 0%, #7B2FCF 100%);
+    color: white;
+    border-radius: var(--border-radius-full);
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-sm);
+    transition: all var(--transition-base);
+    cursor: pointer;
+    box-shadow: var(--elevation-2);
+}
+
+.person-selector .person-toggle:hover {
+    box-shadow: var(--elevation-3);
+    transform: translateY(-2px);
+}
+
+.person-selector .person-toggle .material-icons:first-child {
+    font-size: 24px;
+}
+
+.person-selector .person-toggle .material-icons:last-child {
+    font-size: 18px;
+}
+
+#current-person-name {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.person-menu {
+    min-width: 280px;
+    padding: var(--spacing-sm);
+}
+
+.person-option {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    width: 100%;
+    text-align: left;
+    border-radius: var(--border-radius-md);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    position: relative;
+}
+
+.person-option:hover {
+    background-color: var(--bg-hover);
+}
+
+.person-option.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.person-option.active .person-name,
+.person-option.active .person-role {
+    color: white;
+}
+
+.person-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), #7B2FCF);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.person-option.active .person-avatar {
+    background: white;
+    color: var(--primary-color);
+}
+
+.person-avatar .material-icons {
+    font-size: 28px;
+    color: white;
+}
+
+.person-option.active .person-avatar .material-icons {
+    color: var(--primary-color);
+}
+
+.person-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.person-name {
+    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-base);
+    color: var(--text-color);
+}
+
+.person-role {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.check-icon {
+    color: white;
+    font-size: 20px;
+}
+
+/* Notificación de cambio de persona */
+.person-change-notification {
+    position: fixed;
+    bottom: var(--spacing-xl);
+    right: var(--spacing-xl);
+    background: linear-gradient(135deg, var(--primary-color), #7B2FCF);
+    color: white;
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--border-radius-full);
+    box-shadow: var(--elevation-4);
+    font-weight: var(--font-weight-semibold);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all var(--transition-base);
+    z-index: 10000;
+}
+
+.person-change-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+    .person-selector-wrapper {
+        order: -1;
+    }
+
+    .person-selector .person-toggle {
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+
+    #current-person-name {
+        display: none;
+    }
+
+    .person-menu {
+        min-width: 250px;
+    }
+
+    .person-change-notification {
+        bottom: var(--spacing-md);
+        right: var(--spacing-md);
+        left: var(--spacing-md);
+        text-align: center;
     }
 }

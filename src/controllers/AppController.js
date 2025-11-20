@@ -6,6 +6,7 @@
 import { ProjectModel } from '../models/ProjectModel.js';
 import { SkillModel } from '../models/SkillModel.js';
 import { ExperienceModel } from '../models/ExperienceModel.js';
+import { PersonModel } from '../models/PersonModel.js';
 import { HeaderView } from '../views/HeaderView.js';
 import { ProjectView } from '../views/ProjectView.js';
 import { SkillView } from '../views/SkillView.js';
@@ -17,41 +18,124 @@ export class AppController {
         this.projectModel = new ProjectModel();
         this.skillModel = new SkillModel();
         this.experienceModel = new ExperienceModel();
+        this.personModel = PersonModel;
 
         // Inicializar Views
         this.headerView = new HeaderView();
         this.projectView = new ProjectView();
         this.skillView = new SkillView();
         this.experienceView = new ExperienceView();
+
+        // Persona actual
+        this.currentPersonId = localStorage.getItem('selectedPerson') || 'jassiel';
+        this.currentPersonData = null;
     }
 
     /**
      * Inicializa la aplicación
      */
     init() {
-        // Cargar datos iniciales
-        this.loadData();
+        try {
+            // Cargar datos de la persona actual
+            this.loadPersonData(this.currentPersonId);
 
-        // Renderizar vistas en orden: A.INICIO, B.PROYECTOS, C.EXPERIENCIA, D.HABILIDADES, E.ACERCA DE
-        this.headerView.render();
-        this.renderHeroSection();      // A. INICIO
-        this.renderProjects();          // B. PROYECTOS
-        this.renderExperience();        // C. EXPERIENCIA
-        this.renderSkills();            // D. HABILIDADES
-        this.renderAboutSection();      // E. ACERCA DE
-        this.renderFooter();
+            // Renderizar vistas en orden: A.INICIO, B.PROYECTOS, C.EXPERIENCIA, D.HABILIDADES, E.ACERCA DE
+            const persons = this.personModel.getAllPersons();
+            this.headerView.render(persons);
+            this.renderHeroSection();      // A. INICIO
+            this.renderProjects();          // B. PROYECTOS
+            this.renderExperience();        // C. EXPERIENCIA
+            this.renderSkills();            // D. HABILIDADES
+            this.renderAboutSection();      // E. ACERCA DE
+            this.renderFooter();
 
-        // Configurar event listeners
-        this.setupEventListeners();
+            // Configurar event listeners
+            this.setupEventListeners();
+            
+            console.log('✅ Aplicación inicializada correctamente');
+            console.log('👤 Persona actual:', this.currentPersonData?.name);
+        } catch (error) {
+            console.error('❌ Error al inicializar la aplicación:', error);
+            // Intentar cargar con datos por defecto
+            this.loadFallbackData();
+        }
     }
 
     /**
-     * Carga los datos iniciales
+     * Carga los datos de una persona específica
+     * @param {string} personId - ID de la persona
      */
-    loadData() {
+    loadPersonData(personId) {
+        try {
+            this.currentPersonId = personId;
+            this.currentPersonData = this.personModel.getPersonData(personId);
+            
+            if (!this.currentPersonData) {
+                console.warn('⚠️ No se encontraron datos para:', personId);
+                // Cargar primera persona disponible
+                const persons = this.personModel.getAllPersons();
+                if (persons.length > 0) {
+                    this.currentPersonId = persons[0].id;
+                    this.currentPersonData = this.personModel.getPersonData(this.currentPersonId);
+                }
+            }
+            
+            // Cargar datos de la persona en los modelos
+            this.loadData();
+        } catch (error) {
+            console.error('❌ Error al cargar datos de persona:', error);
+            this.loadFallbackData();
+        }
+    }
+
+    /**
+     * Carga datos de respaldo en caso de error
+     */
+    loadFallbackData() {
+        console.log('📦 Cargando datos de respaldo...');
         this.projectModel.loadInitialData();
         this.skillModel.loadInitialData();
         this.experienceModel.loadInitialData();
+    }
+
+    /**
+     * Carga los datos iniciales de la persona actual
+     */
+    loadData() {
+        if (!this.currentPersonData) return;
+
+        // Cargar proyectos de la persona
+        this.projectModel.loadInitialData(this.currentPersonData.projects || []);
+        
+        // Cargar habilidades de la persona
+        this.skillModel.loadInitialData(this.currentPersonData.skills || []);
+        
+        // Cargar experiencia de la persona
+        this.experienceModel.loadInitialData(this.currentPersonData.experience || []);
+    }
+
+    /**
+     * Recarga todo el contenido con la nueva persona
+     */
+    reloadAllContent() {
+        console.log('🔄 Recargando contenido para:', this.currentPersonData?.name);
+        
+        // Re-renderizar header con nueva persona seleccionada
+        const persons = this.personModel.getAllPersons();
+        this.headerView.currentPersonId = this.currentPersonId;
+        this.headerView.render(persons);
+        
+        // Re-renderizar todas las secciones
+        this.renderHeroSection();
+        this.renderProjects();
+        this.renderExperience();
+        this.renderSkills();
+        this.renderAboutSection();
+        
+        // Scroll suave al inicio
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        console.log('✅ Contenido recargado');
     }
 
     /**
@@ -99,8 +183,38 @@ export class AppController {
      * Configura event listeners globales
      */
     setupEventListeners() {
-        // Aquí puedes agregar listeners para interacciones del usuario
-        console.log('Event listeners configurados');
+        // Listener para cambio de persona
+        window.addEventListener('personChanged', (e) => {
+            console.log('📨 Evento personChanged recibido:', e.detail);
+            const { personId } = e.detail;
+            this.loadPersonData(personId);
+            this.reloadAllContent();
+            
+            // Notificación visual
+            this.showNotification(`Mostrando CV de: ${this.currentPersonData.name}`);
+        });
+        
+        console.log('✅ Event listeners configurados');
+    }
+
+    /**
+     * Muestra notificación temporal
+     * @param {string} message - Mensaje a mostrar
+     */
+    showNotification(message) {
+        const notification = document.createElement('div');
+        notification.className = 'person-change-notification';
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }, 2000);
     }
 
     /**
@@ -109,6 +223,17 @@ export class AppController {
      */
     renderHeroSection() {
         const heroElement = document.getElementById('hero');
+        
+        if (!heroElement) {
+            console.error('❌ Elemento #hero no encontrado');
+            return;
+        }
+        
+        // Usar datos por defecto si no hay currentPersonData
+        const name = this.currentPersonData?.name || 'Desarrollador';
+        const role = this.currentPersonData?.role || 'Full Stack Developer';
+        const bio = this.currentPersonData?.bio || 'Desarrollador apasionado por crear experiencias digitales únicas.';
+        
         heroElement.innerHTML = `
             <div class="hero-content container">
                 <div class="hero-profile">
@@ -116,12 +241,9 @@ export class AppController {
                         <span class="material-icons">arrow_back</span>
                     </div>
                     <div class="profile-info">
-                        <h1 class="hero-title">Erick De Santiago</h1>
-                        <p class="hero-description">
-                            Desarrollador apasionado por crear experiencias digitales únicas.
-                            Mi enfoque combina diseño intuitivo con código limpio y eficiente,
-                            transformando ideas en soluciones innovadoras.
-                        </p>
+                        <h1 class="hero-title">${name}</h1>
+                        <p class="hero-role">${role}</p>
+                        <p class="hero-description">${bio}</p>
                     </div>
                     <div class="profile-decoration right">
                         <span class="material-icons">arrow_forward</span>
@@ -155,6 +277,19 @@ export class AppController {
      */
     renderAboutSection() {
         const aboutElement = document.getElementById('about');
+        
+        if (!aboutElement) {
+            console.error('❌ Elemento #about no encontrado');
+            return;
+        }
+        
+        // Usar datos por defecto si no hay currentPersonData
+        const name = this.currentPersonData?.name || 'Desarrollador';
+        const email = this.currentPersonData?.email || 'email@example.com';
+        const phone = this.currentPersonData?.phone || '+52 123 456 7890';
+        const location = this.currentPersonData?.location || 'México';
+        const social = this.currentPersonData?.social || {};
+        
         aboutElement.innerHTML = `
             <div class="container">
                 <h2 class="section-title">Acerca de Mí</h2>
@@ -163,53 +298,48 @@ export class AppController {
                 <div class="about-blocks">
                     <div class="about-card">
                         <div class="about-card-header">
+                            <span class="material-icons">person</span>
+                            <h3>Información Personal</h3>
+                        </div>
+                        <ul class="about-list">
+                            <li><strong>Nombre:</strong> ${name}</li>
+                            <li><strong>Email:</strong> <a href="mailto:${email}">${email}</a></li>
+                            <li><strong>Teléfono:</strong> ${phone}</li>
+                            <li><strong>Ubicación:</strong> ${location}</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="about-card">
+                        <div class="about-card-header">
+                            <span class="material-icons">link</span>
+                            <h3>Redes Sociales</h3>
+                        </div>
+                        <ul class="about-list social-links">
+                            ${social.github ? `<li><a href="${social.github}" target="_blank" rel="noopener noreferrer">
+                                <span class="material-icons">code</span> GitHub
+                            </a></li>` : ''}
+                            ${social.linkedin ? `<li><a href="${social.linkedin}" target="_blank" rel="noopener noreferrer">
+                                <span class="material-icons">work</span> LinkedIn
+                            </a></li>` : ''}
+                            ${social.twitter ? `<li><a href="${social.twitter}" target="_blank" rel="noopener noreferrer">
+                                <span class="material-icons">chat</span> Twitter
+                            </a></li>` : ''}
+                            ${social.portfolio ? `<li><a href="${social.portfolio}" target="_blank" rel="noopener noreferrer">
+                                <span class="material-icons">language</span> Portfolio
+                            </a></li>` : ''}
+                        </ul>
+                    </div>
+                    
+                    <div class="about-card">
+                        <div class="about-card-header">
                             <span class="material-icons">favorite</span>
-                            <h3>Pasiones</h3>
+                            <h3>Sobre Mí</h3>
                         </div>
                         <ul class="about-list">
-                            <li>Crear soluciones tecnológicas que impacten positivamente en la vida de las personas</li>
-                            <li>Aprender constantemente nuevas tecnologías y metodologías de desarrollo</li>
-                            <li>Colaborar en proyectos de código abierto y contribuir a la comunidad</li>
-                            <li>Diseñar interfaces intuitivas que mejoren la experiencia del usuario</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="about-card">
-                        <div class="about-card-header">
-                            <span class="material-icons">music_note</span>
-                            <h3>Música</h3>
-                        </div>
-                        <ul class="about-list">
-                            <li>La música electrónica me ayuda a concentrarme durante largas sesiones de código</li>
-                            <li>Disfruto del jazz mientras diseño interfaces y planifico arquitecturas</li>
-                            <li>El rock clásico es mi compañero en sesiones de debugging intensivas</li>
-                            <li>Descubrir nuevos artistas y géneros musicales constantemente</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="about-card">
-                        <div class="about-card-header">
-                            <span class="material-icons">interests</span>
-                            <h3>Hobbies</h3>
-                        </div>
-                        <ul class="about-list">
-                            <li>Fotografía digital y edición de imágenes en mis tiempos libres</li>
-                            <li>Practicar senderismo y explorar nuevos lugares naturales</li>
-                            <li>Leer sobre filosofía, ciencia ficción y desarrollo personal</li>
-                            <li>Experimentar con nuevas recetas de cocina internacional</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="about-card">
-                        <div class="about-card-header">
-                            <span class="material-icons">lightbulb</span>
-                            <h3>Intereses</h3>
-                        </div>
-                        <ul class="about-list">
-                            <li>Inteligencia artificial y machine learning aplicado al desarrollo web</li>
-                            <li>Arquitecturas de software escalables y patrones de diseño</li>
-                            <li>Metodologías ágiles y mejores prácticas de desarrollo en equipo</li>
-                            <li>Accesibilidad web y diseño inclusivo para todos los usuarios</li>
+                            <li>Apasionado por crear soluciones tecnológicas innovadoras</li>
+                            <li>Siempre aprendiendo nuevas tecnologías y metodologías</li>
+                            <li>Enfocado en la experiencia del usuario y accesibilidad</li>
+                            <li>Colaborador activo en proyectos de código abierto</li>
                         </ul>
                     </div>
                 </div>
